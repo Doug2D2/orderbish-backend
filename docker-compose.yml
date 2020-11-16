@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    env_file:
+      - db.env
+    ports:
+      - 3432:5432
+  orderbish:
+    image: orderbish
+    depends_on: 
+      - db
+    env_file:
+      - orderbish.env
+    ports:
+      - 8080:8080
